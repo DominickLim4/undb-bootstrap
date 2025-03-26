@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNDB - Alunos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .navbar {
+      background-color: #FB005E !important;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">
+        UNDB
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarUNDB" aria-controls="navbarUNDB" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarUNDB">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+          <li class="nav-item"><a class="nav-link" href="registro.html">Registro</a></li>
+          <li class="nav-item"><a class="nav-link active" href="alunos.html">Alunos</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-4">
+    <h2 class="mb-4">Alunos UNDB</h2>
+    <div class="row" id="alunosCards">
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function getStudents() {
+      const students = localStorage.getItem('students');
+      return students ? JSON.parse(students) : [];
+    }
+
+    function loadStudentCards() {
+      const students = getStudents();
+      const container = document.getElementById('alunosCards');
+      container.innerHTML = '';
+      students.forEach((student) => {
+        const col = document.createElement('div');
+        col.className = "col-md-4 mb-3";
+        col.innerHTML = `
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">${student.name}</h5>
+              <p class="card-text">
+                Curso: ${student.course}<br>
+                Nível: ${student.level}<br>
+                Departamento: ${student.department}
+              </p>
+            </div>
+          </div>
+        `;
+        container.appendChild(col);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      loadStudentCards();
+    });
+  </script>
+</body>
+</html>
